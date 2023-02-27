@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Textarea Row Column</title>
+    <style>
+      #tArea {
+        line-height: 21px;
+        padding: 0;
+        border: 1;
+        min-width: 500px;
+        height:200px;
+        outline: none;
+        resize: none;
+        white-space: nowrap;
+      }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="tArea"></textarea>
+     
+    <div id="resultDiv"></div>
+
+    <script>
+      const tArea = document.getElementById('tArea');
+      const resultDiv = document.getElementById('resultDiv');
+      const lineNumbers = document.querySelector('.line-numbers')
+
+      tArea.addEventListener('keyup', event => {
+        showRowColumn();
+      })
+
+      tArea.addEventListener('mouseup', event => {
+        showRowColumn();
+      })
+
+      tArea.addEventListener('keydown', event => {
+        if (event.key === 'Tab') {
+          const start = tArea.selectionStart
+          const end = tArea.selectionEnd
+
+          tArea.value = tArea.value.substring(0, start) + '    ' + tArea.value.substring(end)
+          event.preventDefault()
+        }
+      })
+
+      function showRowColumn() {
+        var value = tArea.value.substring(0, tArea.selectionStart);
+        var totalLine = value.split('\n');
+        var numberOfLines = totalLine.length;
+        var caretPosition = value.length;
+        var totalCount = 0;
+        var column = 0;
+        for (var i = 0; i < totalLine.length; i++) {
+            totalCount += totalLine[i].length;
+            // caretPosition = i > 0 ? caretPosition - 1 : caretPosition;
+            console.log(caretPosition);
+            if (caretPosition <= totalCount) {                
+                var position = totalCount - caretPosition;
+                // column = (totalLine[i].length - position) + 1;
+                column = (totalLine[i].length - position);
+                // console.log("column: ", column);
+                break;
+            }
+        }
+
+        resultDiv.innerHTML = "Row: " + numberOfLines + ", Column: " + column;
+        // console.log("Row: ", numberOfLines);
+      }
+    </script>
+  </body>
+</html>
