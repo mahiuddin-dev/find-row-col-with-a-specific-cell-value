@@ -53,12 +53,10 @@
         var column = 0;
         for (var i = 0; i < totalLine.length; i++) {
             totalCount += totalLine[i].length;
-            // caretPosition = i > 0 ? caretPosition - 1 : caretPosition;
-            console.log(caretPosition);
+            caretPosition = i > 0 ? caretPosition - 1 : caretPosition;
             if (caretPosition <= totalCount) {                
                 var position = totalCount - caretPosition;
-                // column = (totalLine[i].length - position) + 1;
-                column = (totalLine[i].length - position);
+                column = (totalLine[i].length - position) + 1;
                 // console.log("column: ", column);
                 break;
             }
